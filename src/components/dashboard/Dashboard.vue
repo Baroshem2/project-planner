@@ -1,5 +1,5 @@
 <template>
-      <div class="dashboard container">
+      <div v-if="user" class="dashboard container">
         <div class="row">
           <div class="col s12 m6">
             <ProjectList :projects="projects" />
@@ -14,6 +14,7 @@
 <script>
     import ProjectList from '@/components/projects/ProjectList';
     import Notifications from '@/components/dashboard/Notifications';
+    import { mapGetters } from 'vuex';
     export default {
         name: 'dashboard',
         components: {
@@ -28,6 +29,11 @@
                     {id: '3', title: 'egg hunt with yoshi', content: 'blah blah blah'}
                 ]
             }
+        },
+        computed: {
+          ...mapGetters({
+            user: 'user'
+          })
         }
     }
 </script>

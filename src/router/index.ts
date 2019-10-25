@@ -8,6 +8,11 @@ const routes = [
   {
     path: "/",
     name: "home",
+    component: Home
+  },
+  {
+    path: '/dashboard',
+    name: "dashboard",
     component: () => import('../components/dashboard/Dashboard.vue')
   },
   {
@@ -33,6 +38,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 });
 

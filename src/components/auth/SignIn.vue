@@ -18,6 +18,8 @@
 </template>
 
 <script>
+  import firebase from 'firebase/app';
+
     export default {
         name: 'sign-in',
         data() {
@@ -28,8 +30,17 @@
         },
 
         methods: {
-            sigInUser() {
-                console.log(this.email, this.password);
+            signInUser() {
+                firebase
+                  .auth()
+                  .signInWithEmailAndPassword(this.email, this.password)
+                  .then(data => {
+                    console.log(data);
+                    this.$router.replace({ name: 'dashboard'})
+                  })
+                  .catch(err => {
+                    console.log(err)
+                  })
             }
         }
     }

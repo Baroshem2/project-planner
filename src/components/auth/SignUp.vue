@@ -26,6 +26,8 @@
 </template>
 
 <script>
+  import firebase from 'firebase/app'
+
     export default {
       name: 'sign-up',
         data() {
@@ -39,7 +41,16 @@
 
         methods: {
             signUpUser() {
-                console.log(this.email, this.password, this.firstName, this.lastName);
+                firebase
+                  .auth()
+                  .createUserWithEmailAndPassword(this.email, this.password)
+                  .then(data => {
+                    data.user.updateProfile({
+                      displayName: this.firstName
+                    })
+                    .then(() => {})
+                  })
+                  .catch(err => console.log(err));
             }
         }
     }
