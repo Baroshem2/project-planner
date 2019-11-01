@@ -1,6 +1,6 @@
 <template>
     <div class="project-list section">
-        <ProjectSummary v-for="(project, key) in projects" :key="key" />
+        <ProjectSummary v-for="(project, key) in projects" :key="key" :project="project"/>
     </div>
 </template>
 

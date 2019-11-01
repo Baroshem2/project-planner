@@ -2,20 +2,56 @@
     <div class="container section project-details">
       <div class="card z-depth-0">
         <div class="card-content">
-          <span class="card-title">Project title - {{ $route.params.id }}</span>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore quaerat quibusdam vel saepe, ab voluptate accusantium culpa nemo fuga earum? Soluta amet nobis officia sed neque fuga aperiam quia?</p>
+          <span class="card-title">{{ getProjectById.title }}</span>
+          <p>{{ getProjectById.description }}</p>
         </div>
         <div class="card-action grey lighten-4 grey-text">
-          <div>Posted by The Net Ninja</div>
-          <div>2nd September, 2am</div>
+          <div>Posted by {{ getProjectById.createdBy }}</div>
+          <div>{{ date }}</div>
         </div>
       </div>
     </div>
 </template>
 
 <script>
+  import firebase from "firebase";
+
     export default {
-        name: 'project-details'
+        name: 'project-details',
+
+        data() {
+            return {
+                projects: []
+            }
+        },
+
+        computed: {
+          getProjectById() {
+            return this.projects ? this.projects.find(project => project.id === this.$route.params.id) : null;
+          },
+          date() {
+            return new Date(this.getProjectById.createdAt.seconds * 1000);
+          }
+        },
+
+        methods: {
+          async fetchProjects() {
+            var projectsRef = firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).collection('projects');
+
+            projectsRef.onSnapshot(snap => {
+              this.projects = [];
+              snap.forEach(doc => {
+                var project = doc.data();
+                project.id = doc.id;
+                this.projects.push(project);
+              })
+            })
+          },
+        },
+
+        created() {
+          this.fetchProjects();
+        }
     }
 </script>
 

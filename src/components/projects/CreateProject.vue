@@ -18,6 +18,8 @@
 </template>
 
 <script>
+  import firebase from "firebase";
+
     export default {
         name: 'create-project',
         data() {
@@ -29,7 +31,12 @@
 
         methods: {
             createProject() {
-                console.log(this.title, this.content);
+                firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).collection('projects').add({
+                  title: this.title,
+                  description: this.content,
+                  createdAt: new Date(),
+                  createdBy: firebase.auth().currentUser.displayName
+                })
             }
         }
     }

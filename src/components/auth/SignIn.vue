@@ -4,14 +4,14 @@
           <h5 class="grey-text text-darken-3">Sign In</h5>
           <div class="input-field">
             <label for="email">Email</label>
-            <input type="email" id='email' v-model="email" />
+            <input type="email" id='email' name="email" value required autofocus v-model="email" />
           </div>
           <div class="input-field">
             <label for="password">Password</label>
-            <input type="password" id='password' v-model="password" />
+            <input type="password" id='password' name="password" required autocomplete="off" v-model="password" />
           </div>
           <div class="input-field">
-            <button class="btn pink lighten-1 z-depth-0">Login</button>
+            <button class="btn pink lighten-1 z-depth-0">Sign In</button>
           </div>
         </form>
       </div>
@@ -35,7 +35,6 @@
                   .auth()
                   .signInWithEmailAndPassword(this.email, this.password)
                   .then(data => {
-                    console.log(data);
                     this.$router.replace({ name: 'dashboard'})
                   })
                   .catch(err => {

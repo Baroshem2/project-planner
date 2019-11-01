@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../components/Home.vue";
+import firebase from "firebase";
 
 Vue.use(VueRouter);
 
@@ -13,12 +14,18 @@ const routes = [
   {
     path: '/dashboard',
     name: "dashboard",
-    component: () => import('../components/dashboard/Dashboard.vue')
+    component: () => import('../components/dashboard/Dashboard.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/create',
     name: 'create',
-    component: () => import('../components/projects/CreateProject.vue')
+    component: () => import('../components/projects/CreateProject.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/signup',
@@ -33,7 +40,10 @@ const routes = [
   {
     path: '/project/:id',
     name: 'projectId',
-    component: () => import('../components/projects/ProjectDetails.vue')
+    component: () => import('../components/projects/ProjectDetails.vue'),
+    meta: {
+      requiresAuth: true
+    }
   }
 ];
 
@@ -41,5 +51,16 @@ const router = new VueRouter({
   mode: 'history',
   routes
 });
+
+router.beforeEach((to, from, next) => {
+  let currentUser = firebase.auth().currentUser;
+  let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if(requiresAuth && !currentUser) {
+    next('signin');
+  } else {
+    next();
+  }
+})
 
 export default router;

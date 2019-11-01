@@ -1,5 +1,5 @@
 <template>
-      <div v-if="user" class="dashboard container">
+      <div v-if="user.loggedIn" class="dashboard container">
         <div class="row">
           <div class="col s12 m6">
             <ProjectList :projects="projects" />
@@ -15,6 +15,8 @@
     import ProjectList from '@/components/projects/ProjectList';
     import Notifications from '@/components/dashboard/Notifications';
     import { mapGetters } from 'vuex';
+    import firebase from 'firebase';
+
     export default {
         name: 'dashboard',
         components: {
@@ -23,18 +25,33 @@
         },
         data() {
             return {
-                projects: [
-                    {id: '1', title: 'help me find peach', content: 'blah blah blah'},
-                    {id: '2', title: 'collect all the stars', content: 'blah blah blah'},
-                    {id: '3', title: 'egg hunt with yoshi', content: 'blah blah blah'}
-                ]
+                projects: []
             }
         },
         computed: {
           ...mapGetters({
             user: 'user'
           })
-        }
+        },
+
+        methods: {
+          async fetchProjects() {
+            var projectsRef = firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).collection('projects');
+
+            projectsRef.onSnapshot(snap => {
+              this.projects = [];
+              snap.forEach(doc => {
+                var project = doc.data();
+                project.id = doc.id;
+                this.projects.push(project);
+              })
+            })
+          },
+        },
+
+        created() {
+          this.fetchProjects();
+        },
     }
 </script>
 

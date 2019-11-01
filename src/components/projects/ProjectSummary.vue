@@ -1,16 +1,29 @@
 <template>
-    <div class="card z-depth-0 project-summary">
+    <div class="card z-depth-0 project-summary" @click="openProject()">
       <div class="card-content grey-text text-darken-3">
-        <span class="card-title ">Project Title</span>
-        <p>Posted by The Net Ninja</p>
-        <p class="grey-text">3rd September, 2am</p>
+        <span class="card-title ">{{ project.title }}</span>
+        <p>Posted by {{ project.createdBy }}</p>
+        <p class="grey-text">{{ date }}</p>
       </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'project-summary'
+        name: 'project-summary',
+        props: ['project'],
+
+        computed: {
+          date() {
+            return new Date(this.project.createdAt.seconds * 1000);
+          }
+        },
+
+        methods: {
+          openProject() {
+            this.$router.push({ name: 'projectId', params: { id: this.project.id }});
+          }
+        }
     }
 </script>
 

@@ -1,5 +1,4 @@
-import * as firebase from 'firebase';
-import store from '@/store/index';
+import * as firebase from "firebase";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDJV9Ly1Epe_X_PnWyblO6yiupbzk0t71o",
@@ -11,10 +10,6 @@ const firebaseConfig = {
     appId: "1:578106064017:web:46dcd70b3f20382e491330"
 };
 
-firebase.initializeApp(firebaseConfig);
-
-firebase.auth().onAuthStateChanged(user => {
-    store.dispatch('fetchUser', user);
-}) 
+firebase.initializeApp(firebaseConfig); 
 
 export default firebase;

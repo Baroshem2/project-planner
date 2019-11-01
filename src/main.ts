@@ -4,8 +4,15 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 import "./fconfig/firebaseConfig";
+import "firebase/firestore";
+import firebase from "firebase";
+import VueFire from "vuefire";
 
 Vue.config.productionTip = false;
+
+firebase.auth().onAuthStateChanged(user => {
+  store.dispatch('fetchUser', user);
+})
 
 new Vue({
   router,
