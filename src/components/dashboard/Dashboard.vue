@@ -5,7 +5,7 @@
             <ProjectList :projects="projects" />
           </div>
           <div class="col s12 m5 offset-m1">
-            <Notifications />
+            <Notifications :notifications="notifications"/>
           </div>
         </div>
       </div>
@@ -25,19 +25,19 @@
         },
         data() {
             return {
-                projects: []
+                projects: [],
+                notifications: []
             }
         },
         computed: {
-          ...mapGetters({
-            user: 'user'
-          })
+          ...mapGetters([
+            'user'
+          ])
         },
 
         methods: {
           async fetchProjects() {
-            var projectsRef = firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).collection('projects');
-
+            var projectsRef = firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).collection('projects').orderBy('createdAt', 'desc');
             projectsRef.onSnapshot(snap => {
               this.projects = [];
               snap.forEach(doc => {
@@ -47,10 +47,25 @@
               })
             })
           },
+
+          fetchNotifications() {
+            var notificationsRef = firebase.firestore().collection('notifications').orderBy('time', 'desc');
+
+            notificationsRef.onSnapshot(snap => {
+              this.notifications = [];
+              snap.forEach(doc => {
+                var notification = doc.data();
+                notification.id = doc.id;
+                this.notifications.push(notification);
+                console.log(this.notifications);
+              })
+            })
+          }
         },
 
         created() {
           this.fetchProjects();
+          this.fetchNotifications();
         },
     }
 </script>

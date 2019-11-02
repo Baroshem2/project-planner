@@ -3,7 +3,7 @@
       <div class="card z-depth-0">
         <div class="card-content">
           <span class="card-title">{{ getProjectById.title }}</span>
-          <p>{{ getProjectById.description }}</p>
+          <p class="card-content">{{ getProjectById.description }}</p>
         </div>
         <div class="card-action grey lighten-4 grey-text">
           <div>Posted by {{ getProjectById.createdBy }}</div>

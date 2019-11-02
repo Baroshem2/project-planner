@@ -22,6 +22,7 @@
             <button class="btn pink lighten-1 z-depth-0">Sign Up</button>
           </div>
         </form>
+        <div v-if="error">{{ error }}</div>
       </div>
 </template>
 
@@ -35,8 +36,15 @@
                 email: "",
                 password: "",
                 firstName: "",
-                lastName: ""
+                lastName: "",
+                error: ""
             }
+        },
+
+        computed: {
+          fullName() {
+            return this.firstName + " " + this.lastName;
+          }
         },
 
         methods: {
@@ -46,11 +54,17 @@
                   .createUserWithEmailAndPassword(this.email, this.password)
                   .then(data => {
                     data.user.updateProfile({
-                      displayName: this.firstName
+                      displayName: this.fullName
                     })
-                    .then(() => {})
+                    .then(() => {
+                      this.error = ''
+                      this.$router.replace({ name: 'dashboard' })
+                      })
                   })
-                  .catch(err => console.log(err));
+                  .catch(err => {
+                    console.log(err);
+                    this.error = err;
+                  });
             }
         }
     }

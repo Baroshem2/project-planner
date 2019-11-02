@@ -25,7 +25,7 @@
         data() {
             return {
                 title: '',
-                content: ''
+                content: '',
             }
         },
 
@@ -36,7 +36,9 @@
                   description: this.content,
                   createdAt: new Date(),
                   createdBy: firebase.auth().currentUser.displayName
-                })
+                });
+                M.toast({html: `Project ${this.title} created!`})
+                this.$router.replace({ name: 'dashboard' });
             }
         }
     }

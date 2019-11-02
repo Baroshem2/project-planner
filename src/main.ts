@@ -6,7 +6,6 @@ import store from "./store";
 import "./fconfig/firebaseConfig";
 import "firebase/firestore";
 import firebase from "firebase";
-import VueFire from "vuefire";
 
 Vue.config.productionTip = false;
 

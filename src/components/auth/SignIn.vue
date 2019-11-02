@@ -35,6 +35,7 @@
                   .auth()
                   .signInWithEmailAndPassword(this.email, this.password)
                   .then(data => {
+                    console.log(data);
                     this.$router.replace({ name: 'dashboard'})
                   })
                   .catch(err => {

@@ -1,10 +1,8 @@
 <template>
-    <div>
-      <ul class="right">
-        <li><router-link :to="{ name: 'signup' }">Sign Up</router-link></li>
-        <li><router-link :to="{ name: 'signin' }">Sign In</router-link></li>
-      </ul>
-    </div>
+    <ul class="right">
+      <li><router-link :to="{ name: 'signup' }">Sign Up</router-link></li>
+      <li><router-link :to="{ name: 'signin' }">Sign In</router-link></li>
+    </ul>
 </template>
 
 <script>

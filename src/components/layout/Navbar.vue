@@ -1,7 +1,7 @@
 <template>
-    <nav class="nav-wrapper grey darken-3">
-      <div class="container">
-        <router-link :to="{ name: 'home' }" class="brand-logo left">Vue-Project-Planner</router-link>
+    <nav>
+      <div class="container nav-wrapper">
+        <router-link :to="{ name: 'home' }" class="brand-logo">Vue-Project-Planner</router-link>
         <SignedInLinks v-if="user.loggedIn"/>
         <SignedOutLinks v-else/>
       </div>
@@ -20,9 +20,9 @@
             SignedOutLinks
         },
         computed: {
-          ...mapGetters({
-            user: 'user'
-          })
+          ...mapGetters([
+            'user'
+          ])
         }
     }
 </script>

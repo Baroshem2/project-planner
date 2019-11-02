@@ -2,7 +2,7 @@
     <div class="card z-depth-0 project-summary" @click="openProject()">
       <div class="card-content grey-text text-darken-3">
         <span class="card-title ">{{ project.title }}</span>
-        <p>Posted by {{ project.createdBy }}</p>
+        <p class="card-content">Posted by {{ project.createdBy }}</p>
         <p class="grey-text">{{ date }}</p>
       </div>
     </div>
