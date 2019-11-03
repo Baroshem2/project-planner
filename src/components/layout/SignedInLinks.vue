@@ -1,5 +1,5 @@
 <template>
-    <ul class="right">
+    <ul class="right hide-on-med-and-down">
       <li><router-link :to="{ name: 'create' }">New Project</router-link></li>
       <li><router-link :to="{ name: 'dashboard' }">Dashboard</router-link></li>
       <li><a @click.prevent="signOut()">Log Out</a></li>

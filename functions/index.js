@@ -22,19 +22,24 @@ exports.projectCreated = functions.firestore
     return createNotification(notification);
   });
 
+exports.projectDeleted = functions.firestore
+  .document("users/{userId}/projects/{projectId}")
+  .onDelete(doc => {
+    console.log(doc);
+    const project = doc.data();
+    const notification = {
+      content: "Removed project",
+      user: `${project.createdBy}`,
+      time: admin.firestore.FieldValue.serverTimestamp()
+    };
+
+    return createNotification(notification);
+  });
+
 exports.userJoined = functions.auth.user().onCreate(user => {
-  return admin
-    .firestore()
-    .collection("users")
-    .doc(user.uid)
-    .get()
-    .then(doc => {
-      const newUser = doc.data();
-      const notification = {
-        content: "User joined",
-        user: `${newUser}`,
-        time: admin.firestore.FieldValue.serverTimestamp()
-      };
-      return createNotification(notification);
-    });
+  return createNotification({
+    content: " joined",
+    user: `${user.email}`,
+    time: admin.firestore.FieldValue.serverTimestamp()
+  });
 });

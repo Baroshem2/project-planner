@@ -1,5 +1,5 @@
 <template>
-    <nav>
+    <nav class="transparent">
       <div class="container nav-wrapper">
         <router-link :to="{ name: 'home' }" class="brand-logo">Vue-Project-Planner</router-link>
         <SignedInLinks v-if="user.loggedIn"/>

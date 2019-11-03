@@ -1,7 +1,7 @@
 <template>
       <div class="container">
-        <form class="white" @submit.prevent="signInUser()">
-          <h5 class="grey-text text-darken-3">Sign In</h5>
+        <form class="transparent" @submit.prevent="signInUser()">
+          <h3 class="white-text">Sign In</h3>
           <div class="input-field">
             <label for="email">Email</label>
             <input type="email" id='email' name="email" value required autofocus v-model="email" />

@@ -10,6 +10,7 @@
                       <div class="grey-text note-date">
                           {{ moment(notification.time.toDate()).fromNow() }}
                       </div>
+                      <a class="btn-floating btn-small waves-effect waves-light red accent-3" @click="deleteNotification(notification.id)"><i class="material-icons">delete</i></a>
                   </li>
               </ul>
           </div>
@@ -18,20 +19,21 @@
 </template>
 
 <script>
-import moment from 'moment'
+import moment from 'moment';
+import firebase from 'firebase';
+
     export default {
         name: 'notifications',
         props: ['notifications'],
         methods: {
-            moment() {
-                return moment();
+            moment(param) {
+                return moment(param);
+            },
+
+            deleteNotification(id) {
+                firebase.firestore().collection("notifications").doc(id).delete()
             }
-        },
-
-        mounted() {
-            console.log(this.notifications);
         }
-
     }
 </script>
 

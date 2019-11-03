@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-  </div>
+  <h1 class="center white-text">
+    Welcome to Vue Project Planner.
+  </h1>
 </template>
 
 <script>

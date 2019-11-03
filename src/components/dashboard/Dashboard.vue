@@ -57,7 +57,6 @@
                 var notification = doc.data();
                 notification.id = doc.id;
                 this.notifications.push(notification);
-                console.log(this.notifications);
               })
             })
           }

@@ -1,7 +1,7 @@
 <template>
       <div class="container">
-        <form class="white" @submit.prevent="signUpUser()">
-          <h5 class="grey-text text-darken-3">Sign Up</h5>
+        <form class="transparent" @submit.prevent="signUpUser()">
+          <h3 class="white-text">Sign Up</h3>
           <div class="input-field">
             <label for="email">Email</label>
             <input type="email" id='email' v-model="email" />

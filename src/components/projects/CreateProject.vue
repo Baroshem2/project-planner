@@ -1,7 +1,7 @@
 <template>
       <div class="container">
-        <form class="white" @submit.prevent="createProject()">
-          <h5 class="grey-text text-darken-3">Create a New Project</h5>
+        <form class="transparent" @submit.prevent="createProject()">
+          <h3 class="white-text">Create a New Project</h3>
           <div class="input-field">
             <input type="text" id='title' v-model="title" />
             <label for="title">Project Title</label>
@@ -14,6 +14,7 @@
             <button class="btn pink lighten-1">Create</button>
           </div>
         </form>
+        <div v-if="error" class="white-text">{{ error }}</div>
       </div>
 </template>
 
@@ -26,11 +27,13 @@
             return {
                 title: '',
                 content: '',
+                error: ''
             }
         },
 
         methods: {
             createProject() {
+              if(this.title && this.content) {
                 firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).collection('projects').add({
                   title: this.title,
                   description: this.content,
@@ -39,6 +42,9 @@
                 });
                 M.toast({html: `Project ${this.title} created!`})
                 this.$router.replace({ name: 'dashboard' });
+              } else {
+                this.error = "Title or Content cannot be empty"
+              }
             }
         }
     }
