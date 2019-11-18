@@ -3,11 +3,11 @@
         <form class="transparent" @submit.prevent="createProject()">
           <h3 class="white-text">Create a New Project</h3>
           <div class="input-field">
-            <input type="text" id='title' v-model="title" />
+            <input type="text" id='title' v-model="title" class="white-text"/>
             <label for="title">Project Title</label>
           </div>
           <div class="input-field">
-            <textarea id="content" class="materialize-textarea" v-model="content"></textarea>
+            <textarea id="content" class="materialize-textarea white-text" v-model="content" ></textarea>
             <label for="content">Project Content</label>
           </div>
           <div class="input-field">

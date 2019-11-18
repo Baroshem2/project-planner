@@ -4,20 +4,21 @@
           <h3 class="white-text">Sign In</h3>
           <div class="input-field">
             <label for="email">Email</label>
-            <input type="email" id='email' name="email" value required autofocus v-model="email" />
+            <input type="email" id='email' name="email" value required autofocus v-model="email" class="white-text"/>
           </div>
           <div class="input-field">
             <label for="password">Password</label>
-            <input type="password" id='password' name="password" required autocomplete="off" v-model="password" />
+            <input type="password" id='password' name="password" required autocomplete="off" v-model="password" class="white-text" />
           </div>
           <div class="input-field">
             <button class="btn pink lighten-1 z-depth-0">Sign In</button>
           </div>
         </form>
+        <div v-if="error" class="white-text">{{ error }}</div>
       </div>
 </template>
 
-<script>
+<script >
   import firebase from 'firebase/app';
 
     export default {
@@ -25,7 +26,8 @@
         data() {
             return {
                 email: "",
-                password: ""
+                password: "",
+                error: ""
             }
         },
 
@@ -35,11 +37,11 @@
                   .auth()
                   .signInWithEmailAndPassword(this.email, this.password)
                   .then(data => {
-                    console.log(data);
                     this.$router.replace({ name: 'dashboard'})
                   })
                   .catch(err => {
-                    console.log(err)
+                    this.error = err;
+                    console.log(err);
                   })
             }
         }

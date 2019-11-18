@@ -1,7 +1,7 @@
 <template>
     <nav class="transparent">
       <div class="container nav-wrapper">
-        <router-link :to="{ name: 'home' }" class="brand-logo">Vue-Project-Planner</router-link>
+        <router-link :to="{ name: 'home' }" class="brand-logo">Vue-PP</router-link>
         <SignedInLinks v-if="user.loggedIn"/>
         <SignedOutLinks v-else/>
       </div>
